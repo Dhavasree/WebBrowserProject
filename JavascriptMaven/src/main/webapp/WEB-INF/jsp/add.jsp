@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-Connected Successfully
+successfully connected
 </body>
 </html>

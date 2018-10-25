@@ -4,13 +4,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.capgemini</groupId>
-  <artifactId>SourceConnection</artifactId>
+  <groupId>com.cg</groupId>
+  <artifactId>Javascript</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>SourceConnection Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
+ 
   <url>http://www.example.com</url>
 
   <properties>
@@ -20,18 +20,17 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
       <!-- Spring MVC Dependency -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>4.3.7.RELEASE</version>
     </dependency>
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20090211</version>
+</dependency>
 
     <!-- Jackson API -->
     <dependency>
@@ -46,6 +45,11 @@
       <artifactId>hibernate-validator</artifactId>
       <version>5.4.1.Final</version>
     </dependency>
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+</dependency>
 
     <!-- JSTL Dependency -->
     <dependency>
@@ -80,9 +84,16 @@
     <version>1.4.197</version>
     <scope>runtime</scope>
 </dependency>
+<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
   </dependencies>
 
   <build>
-    <finalName>SourceConnection</finalName>
+    <finalName>Javascript</finalName>
   </build>
+  
 </project>
