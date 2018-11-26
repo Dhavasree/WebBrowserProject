@@ -25,7 +25,7 @@ public class StatusServiceImpl implements StatusService{
 	}
 
 	@Override
-	public Status addDetails(Status status) {
+	public Exception addDetails(Status status) {
 		// TODO Auto-generated method stub
 		return dao.addDetails(status);
 	}

@@ -22,6 +22,10 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		startTime();
+		 $("#status1").submit(function(e){
+			 e.preventDefault();
+			 addFunction();
+		}); 
 	function startTime() {
 	    var today = new Date();
 	    var today1 = moment().format('DD/MM/YYYY');
@@ -37,18 +41,36 @@
 	    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
 	    return i;
 	}
+	function addFunction()
+	{
+	$.ajax({
+		type : 'post',
+		url : 'update',
+		data : $('form[name="statusTable"]').serialize(),
+		success : function(response) {
+			if (response.validated) {	
+				$('#resultContainer').show();
+			}
+		}
+		
+	});
+	};
 	});
 </script>
 </head>
 <body>
+<div id="resultContainer" style="display: none;">
+
+				<h4 style="color: green;"> Updated Successfully in database</h4>
+				</div>	
 <div class="span6" align="center">
-<form:form id="status1" class="form-signin" modelAttribute="status" action="update" method="post">
+<form:form id="status1" class="form-signin" modelAttribute="status" name="statusTable" method="post">
 	<h1 align="center">Update Weekly Status Report</h1>
 		<table id="statusTable" >
 				<tr><td><Strong>User Name</Strong></td>
 				<td><input type="text" name="userName" class="form-group" id="userName" value="${userName}" readonly/></td></tr>
 				<tr><td><Strong>Status Report</Strong></td>
-				<td><input type="date" name="statusReport" class="form-group" id="statusReport" value="${statusReport}" readonly/></td></tr>
+				<td><input type="text" name="statusReport" class="form-group" id="statusReport" value="${statusReport}" readonly/></td></tr>
 				<tr><td><Strong>Current Week Status</Strong></td> 
 				<td><textarea name="currentWeekStatus" class="form-group" id="currentWeekStatus" rows="5" cols="60" required>${CurrentWeekStatus}</textarea></td></tr>
 				<tr><td><Strong>Next Week Status</Strong></td>

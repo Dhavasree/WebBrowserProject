@@ -33,11 +33,10 @@ $(document).ready(function() {
     else if (diff < 0) {
         date.setDate(date.getDate() + ((-1) * diff))
     }
-    $("#statusReport").val(date.getDate()+"/"+((date.getMonth())+1)+"/"+date.getFullYear()); 
-	
+   $("#statusReport").val(date.getDate()+"/"+((date.getMonth())+1)+"/"+date.getFullYear()); 
 	$('#statusReport').datepicker({
 		minDate: 0,
-		dateFormat: 'dd/mm/yy',
+		dateFormat: 'dd/mm/yy', 
 		beforeShowDay: function(date)
 		{
 			if(date.getDay()==5)

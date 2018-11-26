@@ -24,10 +24,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	startTime();
-	$("#status1").submit(function(e)
-			{
-		$("#connect").show();
-			});
+	 $("#status1").submit(function(e){
+		 e.preventDefault();
+		 addFunction();
+	}); 
 function startTime() {
     var today = new Date();
     var today1 = moment().format('DD/MM/YYYY');
@@ -43,20 +43,40 @@ function checkTime(i) {
     if (i < 10) {i = "0" + i};
     return i;
 }
-
+function addFunction()
+{
+$.ajax({
+	type : 'post',
+	url : 'add',
+	data : $('form[name="statusTable"]').serialize(),
+	success : function(response) {
+		if (response.validated) {	
+			$('#resultContainer').show();
+		}
+		else
+			{
+			alert("error");
+			}
+	}
+});
+};
 });
 </script>
 </head>
 <body >
-<div class="span6" align="center">				
-<form id="status1" class="form-signin"  action="add" method="post" >
+<div id="resultContainer" style="display: none;">
+
+				<h4 style="color: green;">Successfully Stored in database</h4>
+				</div>			
+<div class="span6" align="center">	
+<form id="status1" class="form-signin" name="statusTable">
 	<h1 align="center">Weekly status Report</h1>
-	<h4 style="display: none;" id="connect">Source Connected Successfully</h4>
+	<!-- <h4 style="display: none;" id="connect">Stored Successfully</h4> -->
 		 <table id="statusTable" >
 				<tr><td><Strong>User Name</Strong></td>
 				<td><input type="text" name="userName" class="form-group" id="userName" value="${userName}" readonly/></td></tr>
 				<tr><td><Strong>Status Report</Strong></td>
-				<td><input type="date" name="statusReport" class="form-group" id="statusReport" value="${statusReport}" readonly/></td></tr>
+				<td><input type="text" name="statusReport" class="form-group" id="statusReport" value="${statusReport}" readonly/></td></tr>
 				<tr><td><Strong>Current Week Status</Strong></td> 
 				<td><textarea name="currentWeekStatus" class="form-group" id="currentWeekStatus" rows="5" cols="60" required></textarea></td></tr>
 				<tr><td><Strong>Next Week Status</Strong></td>

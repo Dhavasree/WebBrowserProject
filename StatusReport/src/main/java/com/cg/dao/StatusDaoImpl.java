@@ -16,7 +16,7 @@ public class StatusDaoImpl implements StatusDao {
 	Status status=new Status();
 	Connection con;
 	@Override
-	public Status addDetails(Status status) {
+	public Exception addDetails(Status status) {
 		try
 		{
 		Class.forName("org.h2.Driver");
@@ -35,9 +35,9 @@ public class StatusDaoImpl implements StatusDao {
 		catch(Exception e)
 		{
 			System.out.println(e);
-			return null;
+			return e;
 		}
-		return status;
+		return null;
 	}
 	 public boolean isUsernameRegistered(String username,Date statusReport) {
 		 

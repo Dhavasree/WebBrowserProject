@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cg.bean.JsonResponse;
 import com.cg.bean.Status;
 import com.cg.service.StatusService;
 @Controller
@@ -47,9 +49,10 @@ public class StatusCtrl {
 		return model;
 		    }
 	}
-	@RequestMapping(value="/add",method = RequestMethod.POST)
-	public String addDetails(@RequestParam("userName")String userName,@RequestParam("statusReport")String statusReport,@RequestParam("currentWeekStatus")String currentWeekStatus,@RequestParam("nextWeekStatus")String nextWeekStatus,@RequestParam("issueNote")String issueNote,@RequestParam("timeStamp")String timeStamp) throws ParseException
+	@RequestMapping(value="/add")
+	public @ResponseBody JsonResponse addDetails(@RequestParam("userName")String userName,@RequestParam("statusReport")String statusReport,@RequestParam("currentWeekStatus")String currentWeekStatus,@RequestParam("nextWeekStatus")String nextWeekStatus,@RequestParam("issueNote")String issueNote,@RequestParam("timeStamp")String timeStamp) throws ParseException
 	{
+		JsonResponse response=new JsonResponse();
 	Status status=new Status();
 	status.setUserName(userName);
 	SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
@@ -65,20 +68,22 @@ public class StatusCtrl {
 	 java.sql.Timestamp timestamp = new java.sql.Timestamp(dat.getTime());
       status.setTimeStamp(timestamp);
       System.out.println(timestamp);
-		Status s1=service.addDetails(status);
-		/*ModelAndView model=new ModelAndView();
-		model.addObject("status", status);*/
-		if(s1!=null)
-		{
-			return "source";
-		}
-		return null;
-		
+      Exception error=service.addDetails(status);
+      if(error==null){
+		System.out.println("dao");
+		response.setValidated(true);
+		  return response;
+      }
+      else
+      {
+    	  response.setValidated(false);
+    	  return response;
+      }	
 	}
 	@RequestMapping(value="/update",method = RequestMethod.POST)
-	public String updateDetails(@RequestParam("userName")String userName,@RequestParam("statusReport")String statusReport,@RequestParam("currentWeekStatus")String currentWeekStatus,@RequestParam("nextWeekStatus")String nextWeekStatus,@RequestParam("issueNote")String issueNote,@RequestParam("timeStamp")String timeStamp) throws ParseException
+	public @ResponseBody JsonResponse updateDetails(@RequestParam("userName")String userName,@RequestParam("statusReport")String statusReport,@RequestParam("currentWeekStatus")String currentWeekStatus,@RequestParam("nextWeekStatus")String nextWeekStatus,@RequestParam("issueNote")String issueNote,@RequestParam("timeStamp")String timeStamp) throws ParseException
 	{
-		
+		JsonResponse response=new JsonResponse();
 		Status status=new Status();
 	status.setUserName(userName);
 	SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy");
@@ -95,8 +100,13 @@ public class StatusCtrl {
       status.setTimeStamp(timestamp);
       System.out.println(timestamp);
 		Status s2=service.updateDetails(status);
+		response.setValidated(true);
+		return response;
 		
-		return "success";
-		
+	}
+	@RequestMapping(value="/index")
+	public String details()
+	{
+		return "update";
 	}
 }

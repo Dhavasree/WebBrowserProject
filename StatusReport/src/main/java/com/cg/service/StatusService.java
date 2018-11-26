@@ -5,8 +5,9 @@ import java.sql.Date;
 import com.cg.bean.Status;
 
 public interface StatusService {
-	public Status addDetails(Status status);
+	public Exception addDetails(Status status);
 	public Status updateDetails(Status status);
 	 public boolean isUsernameRegistered(String username,Date statusReport);
 	public Status updateFunction(String userName, Date statusReport1);
 }
+
